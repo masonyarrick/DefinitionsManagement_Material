@@ -1,0 +1,721 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "API for managing material definitions.",
+    "version" : "1.0.0",
+    "title" : "Definitions Management Material API",
+    "contact" : {
+      "email" : "mason.yarrick@bhp.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags" : [ {
+    "name" : "admins",
+    "description" : "Secured Admin-only calls"
+  }, {
+    "name" : "developers",
+    "description" : "Operations available to regular developers"
+  } ],
+  "paths" : {
+    "/materialClass/{id}" : {
+      "get" : {
+        "tags" : [ "developers" ],
+        "summary" : "gets material classes",
+        "operationId" : "getMaterialClass",
+        "description" : "Gets material classes with specific IDs\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "description" : "Material Class ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "version",
+          "description" : "The version of the spec to get the class from",
+          "required" : false,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/MaterialClass"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "admins" ],
+        "summary" : "deletes material classes",
+        "operationId" : "deleteMaterialClass",
+        "description" : "Deletes material classes with specific IDs\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "description" : "Material Class ID",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Deleted"
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "admins" ],
+        "summary" : "updates material classes",
+        "operationId" : "updateMaterialClass",
+        "description" : "Updates material classes with specific IDs\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "description" : "Material Class ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "materialClass",
+          "description" : "The material class to create.",
+          "schema" : {
+            "$ref" : "#/definitions/MaterialClass"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Updated"
+          },
+          "400" : {
+            "description" : "Bad input parameter"
+          }
+        }
+      }
+    },
+    "/materialClass" : {
+      "get" : {
+        "tags" : [ "developers" ],
+        "summary" : "searches for material classes",
+        "operationId" : "findMaterialClasses",
+        "description" : "Searches for material classes with specific properties\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "id",
+          "description" : "the unique identifier of the material class to retrieve",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "hierarchyScopeId",
+          "description" : "The hierarchy scope to retrieve material classes by",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "description" : "the number of results to return",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "in" : "query",
+          "name" : "version",
+          "description" : "the version of the spec to retrieve the class for",
+          "required" : false,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/MaterialClass"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad input parameter"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "admins" ],
+        "summary" : "creates material classes",
+        "operationId" : "createMaterialClass",
+        "description" : "Create new items of material classes in the system\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "materialClass",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/MaterialClass"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          },
+          "400" : {
+            "description" : "Bad input parameter"
+          }
+        }
+      }
+    },
+    "/materialDefinition/{id}" : {
+      "get" : {
+        "tags" : [ "developers" ],
+        "summary" : "gets material definitions",
+        "operationId" : "getMaterialDefinition",
+        "description" : "Gets material definitions with specific IDs\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "description" : "Material Definition ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "version",
+          "description" : "The version of the spec to get the defintions for",
+          "required" : false,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/MaterialDefinition"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "admins" ],
+        "summary" : "deletes material definitions",
+        "operationId" : "deleteMaterialDefinition",
+        "description" : "Deletes material definitions with specific IDs\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "description" : "Material Definition ID",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Deleted"
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "admins" ],
+        "summary" : "updates material definitions",
+        "operationId" : "updateMaterialDefinition",
+        "description" : "Updates material definitions with specific IDs\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "description" : "Material Definition ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "materialDefinition",
+          "description" : "The material definition to create.",
+          "schema" : {
+            "$ref" : "#/definitions/MaterialDefinition"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Updated"
+          },
+          "400" : {
+            "description" : "Bad input parameter"
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      }
+    },
+    "/materialDefinition" : {
+      "get" : {
+        "tags" : [ "developers" ],
+        "summary" : "searches for material definitions",
+        "operationId" : "findMaterialDefinitions",
+        "description" : "Searches for material definitions with specific properties\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "id",
+          "description" : "the unique identifier of the material definition to retrieve",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "description" : "the number of results to return",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "in" : "query",
+          "name" : "version",
+          "description" : "the version of the spec to retrieve the definitions for",
+          "required" : false,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/MaterialDefinition"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "admins" ],
+        "summary" : "creates material definitions",
+        "operationId" : "createMaterialDefinition",
+        "description" : "Create new items of material definitions in the system\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "materialDefinition",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/MaterialDefinition"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          },
+          "400" : {
+            "description" : "Bad input parameter"
+          }
+        }
+      }
+    },
+    "/materialLot/{id}" : {
+      "get" : {
+        "tags" : [ "developers" ],
+        "summary" : "gets material lots",
+        "operationId" : "getMaterialLot",
+        "description" : "Gets material lots with specific IDs\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "description" : "Material Lot ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "version",
+          "description" : "The version of the spec to retrieve the lot for.",
+          "required" : false,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/MaterialLot"
+            }
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "admins" ],
+        "summary" : "deletes material lots",
+        "operationId" : "deleteMaterialLot",
+        "description" : "Delete existing lots of material from the system\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "description" : "Material Lot ID",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Deleted"
+          },
+          "404" : {
+            "description" : "Not found"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "admins" ],
+        "summary" : "updates material lots",
+        "operationId" : "updateMaterialLot",
+        "description" : "Update existing lots of material in the system\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "id",
+          "description" : "Material Lot ID",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "materialLot",
+          "description" : "The new state of the material lot.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/MaterialLot"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Updated"
+          },
+          "400" : {
+            "description" : "Bad input parameter"
+          }
+        }
+      }
+    },
+    "/materialLot" : {
+      "get" : {
+        "tags" : [ "developers" ],
+        "summary" : "retrieves material lots",
+        "operationId" : "searchMaterialLots",
+        "description" : "By passing in the appropriate options, you can search for available material lots in the system\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "id",
+          "description" : "the unique identifier of the material lot to retrieve",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "hierarchyScopeId",
+          "description" : "The hierarchy scope to retrieve material lots by",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "description" : "the number of results to return",
+          "required" : false,
+          "type" : "number"
+        }, {
+          "in" : "query",
+          "name" : "version",
+          "description" : "the version of the spec to get the lots for",
+          "required" : false,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/MaterialLot"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad input parameter"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "admins" ],
+        "summary" : "creates material",
+        "operationId" : "createMaterial",
+        "description" : "Create new lots of material in the system\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "materialLot",
+          "description" : "The Material Lot to create",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/MaterialLot"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          },
+          "400" : {
+            "description" : "Bad input parameter"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "MaterialClass" : {
+      "type" : "object",
+      "required" : [ "id", "version", "hierarchyScopeId", "effectiveFrom", "effectiveTo" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "example" : "HIGH GRADE"
+        },
+        "version" : {
+          "type" : "number",
+          "example" : 1
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "High Grade Ore"
+        },
+        "hierarchyScopeId" : {
+          "type" : "string",
+          "example" : "ER-IP"
+        },
+        "parentClassId" : {
+          "type" : "string",
+          "example" : "IN-SITU"
+        },
+        "effectiveFrom" : {
+          "type" : "string",
+          "example" : "201808151000"
+        },
+        "effectiveTo" : {
+          "type" : "string",
+          "example" : "201808151000"
+        },
+        "properties" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MaterialClassProperty"
+          }
+        }
+      }
+    },
+    "MaterialClassProperty" : {
+      "type" : "object",
+      "required" : [ "id", "value", "unitOfMeasure" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "example" : "Fe"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Iron"
+        },
+        "value" : {
+          "type" : "string",
+          "example" : "62"
+        },
+        "unitOfMeasure" : {
+          "type" : "string",
+          "example" : "percentage"
+        },
+        "properties" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MaterialClassProperty"
+          }
+        }
+      }
+    },
+    "MaterialLot" : {
+      "type" : "object",
+      "required" : [ "id", "version", "hierarchyScopeId", "effectiveFrom", "effectiveTo" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "example" : "EX7015"
+        },
+        "version" : {
+          "type" : "number",
+          "example" : 1
+        },
+        "materialClassId" : {
+          "type" : "string",
+          "example" : "ER-9400"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Excavator EX7015"
+        },
+        "status" : {
+          "type" : "string",
+          "example" : "In Process"
+        },
+        "storageLocationId" : {
+          "type" : "string",
+          "example" : "ER-IP"
+        },
+        "quantity" : {
+          "type" : "number",
+          "example" : 5000
+        },
+        "unitOfMeasure" : {
+          "type" : "string",
+          "example" : "Tonnes"
+        },
+        "parentLotId" : {
+          "type" : "string",
+          "example" : "BENCH-ID"
+        },
+        "effectiveFrom" : {
+          "type" : "string",
+          "example" : "201808151000"
+        },
+        "effectiveTo" : {
+          "type" : "string",
+          "example" : "201808151000"
+        },
+        "properties" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MaterialLotProperty"
+          }
+        }
+      }
+    },
+    "MaterialLotProperty" : {
+      "type" : "object",
+      "required" : [ "id", "value", "unitOfMeasure" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "example" : "Fe"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Iron"
+        },
+        "value" : {
+          "type" : "string",
+          "example" : "62"
+        },
+        "unitOfMeasure" : {
+          "type" : "string",
+          "example" : "percentage"
+        },
+        "properties" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MaterialLotProperty"
+          }
+        }
+      }
+    },
+    "MaterialDefinition" : {
+      "type" : "object",
+      "required" : [ "id", "version" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "example" : "HG1"
+        },
+        "version" : {
+          "type" : "number",
+          "example" : 1
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "High Grade 1"
+        },
+        "materialClassId" : {
+          "type" : "string",
+          "example" : "ER-HG"
+        },
+        "parentDefinitionId" : {
+          "type" : "string",
+          "example" : "ER-DEF-HG"
+        },
+        "assemblyType" : {
+          "type" : "string",
+          "example" : "Logical"
+        },
+        "assemblyRelationship" : {
+          "type" : "string",
+          "example" : "Permanent"
+        },
+        "effectiveFrom" : {
+          "type" : "string",
+          "example" : "201808151000"
+        },
+        "effectiveTo" : {
+          "type" : "string",
+          "example" : "201808151000"
+        },
+        "properties" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MaterialDefinitionProperty"
+          }
+        }
+      }
+    },
+    "MaterialDefinitionProperty" : {
+      "type" : "object",
+      "required" : [ "id", "value", "unitOfMeasure" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "example" : "Fe"
+        },
+        "description" : {
+          "type" : "string",
+          "example" : "Iron"
+        },
+        "value" : {
+          "type" : "string",
+          "example" : "62"
+        },
+        "unitOfMeasure" : {
+          "type" : "string",
+          "example" : "percentage"
+        },
+        "properties" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MaterialDefinitionProperty"
+          }
+        }
+      }
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/BHP7/DefinitionsManagement_Material/1.0.0",
+  "schemes" : [ "https" ]
+}
