@@ -1,7 +1,7 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "description" : "API for managing material definitions.",
+    "description" : "Product definition management shall be defined as the collection of activities that manage all of the Level 3 information about the product required for manufacturing, including the product production rules. Product definition information is shared between product production rules, bill of material and bill of resources. The product production rules contain the information used to instruct a manufacturing operation how to produce a product. This may be called a work master (ISA-95 Part 4), general, site, or master recipe (ANSI/ISA-88.00.01 and IEC 61512-1 definitions), standard operating procedure (SOP), standard operating conditions (SOC), routing, or assembly steps based on the production strategy used. The product definition information is made available to other Level 3 functions and to Level 2 functions as required. Product definition management includes management of the distribution of product production rules. Some of the product production rules may exist in Level 2 and Level 1 equipment. When that is the case, downloads of this information shall be coordinated with other manufacturing operations management functions to avoid affecting production. This information may be included as part of operational commands when the download is part of a production execution management activity.",
     "version" : "1.0.0",
     "title" : "Definitions Management Material API",
     "contact" : {
@@ -492,30 +492,32 @@
       "properties" : {
         "id" : {
           "type" : "string",
+          "description" : "A unique identification of a specific material class, within the scope of the information exchanged (production capability, production schedule, production performance, …) The ID shall be used in other parts of the model when the material class needs to be identified, such as the production capability for this material class, or a production response identifying the material class used.",
           "example" : "HIGH GRADE"
         },
         "version" : {
           "type" : "number",
+          "description" : "The version number of this Material Class.",
           "example" : 1
         },
         "description" : {
           "type" : "string",
+          "description" : "Additional information about the material class.",
           "example" : "High Grade Ore"
-        },
-        "hierarchyScopeId" : {
-          "type" : "string",
-          "example" : "ER-IP"
         },
         "parentClassId" : {
           "type" : "string",
+          "description" : "The class that this Material Class belongs to.",
           "example" : "IN-SITU"
         },
         "effectiveFrom" : {
           "type" : "string",
+          "description" : "The timestamp that this Material Class is effective from.",
           "example" : "201808151000"
         },
         "effectiveTo" : {
           "type" : "string",
+          "description" : "The timestamp that this Material Class is effective to.",
           "example" : "201808151000"
         },
         "properties" : {
@@ -532,18 +534,22 @@
       "properties" : {
         "id" : {
           "type" : "string",
+          "description" : "An identification of a specific material class property.",
           "example" : "Fe"
         },
         "description" : {
           "type" : "string",
+          "description" : "Additional information about the material class property.",
           "example" : "Iron"
         },
         "value" : {
           "type" : "string",
+          "description" : "The value, set of values, or range of the property.",
           "example" : "62"
         },
-        "unitOfMeasure" : {
+        "valueUnitOfMeasure" : {
           "type" : "string",
+          "description" : "The unit of measure of the associated property value, if applicable.",
           "example" : "percentage"
         },
         "properties" : {
@@ -560,46 +566,55 @@
       "properties" : {
         "id" : {
           "type" : "string",
-          "example" : "EX7015"
+          "description" : "A unique identification of a specific material lot, within the scope of the information exchanged (production capability, production schedule, production performance, …) The ID shall be used in other parts of the model when the material lot needs to be identified, such as the production capability for this material lot, or a production response identifying the material lot used.",
+          "example" : "Block XYZ"
         },
         "version" : {
           "type" : "number",
+          "description" : "The version number of this instance of the Material Lot.",
           "example" : 1
-        },
-        "materialClassId" : {
-          "type" : "string",
-          "example" : "ER-9400"
-        },
-        "description" : {
-          "type" : "string",
-          "example" : "Excavator EX7015"
         },
         "status" : {
           "type" : "string",
+          "description" : "Status of the material lot. For example, released, approved, blocked, in process, in quality check.",
           "example" : "In Process"
+        },
+        "materialClassId" : {
+          "type" : "string",
+          "example" : "In-Situ"
+        },
+        "materialDefinitionId" : {
+          "type" : "string",
+          "example" : "HG1"
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "Additional information about the material lot.",
+          "example" : "ER Crusher"
         },
         "storageLocationId" : {
           "type" : "string",
-          "example" : "ER-IP"
+          "description" : "An identification of the storage location or a physical location of the material lot.",
+          "example" : "ER-PC"
         },
         "quantity" : {
           "type" : "number",
+          "description" : "The quantity of the material lot.",
           "example" : 5000
         },
-        "unitOfMeasure" : {
+        "quantityUnitOfMeasure" : {
           "type" : "string",
+          "description" : "The unit of measure of the associated quantity, if applicable.",
           "example" : "Tonnes"
-        },
-        "parentLotId" : {
-          "type" : "string",
-          "example" : "BENCH-ID"
         },
         "effectiveFrom" : {
           "type" : "string",
+          "description" : "The timestamp that this state of the Material Lot is effective from.",
           "example" : "201808151000"
         },
         "effectiveTo" : {
           "type" : "string",
+          "description" : "The timestamp that this state of the Material Lot expires.",
           "example" : "201808151000"
         },
         "properties" : {
@@ -612,29 +627,27 @@
     },
     "MaterialLotProperty" : {
       "type" : "object",
-      "required" : [ "id", "value", "unitOfMeasure" ],
+      "required" : [ "id", "description", "value", "valueUnitOfMeasure" ],
       "properties" : {
         "id" : {
           "type" : "string",
-          "example" : "Fe"
+          "description" : "An identification of a specific material class property.",
+          "example" : "DigRate"
         },
         "description" : {
           "type" : "string",
-          "example" : "Iron"
+          "description" : "Additional information about the material class property.",
+          "example" : "Dig Rate"
         },
         "value" : {
           "type" : "string",
-          "example" : "62"
+          "description" : "The value, set of values, or range of the property.",
+          "example" : 3600
         },
-        "unitOfMeasure" : {
+        "valueUnitOfMeasure" : {
           "type" : "string",
-          "example" : "percentage"
-        },
-        "properties" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/MaterialLotProperty"
-          }
+          "description" : "The unit of measure of the associated property value, if applicable.",
+          "example" : "Tonnes/Hour"
         }
       }
     },
@@ -644,38 +657,37 @@
       "properties" : {
         "id" : {
           "type" : "string",
+          "description" : "A unique identification of a specific material definition, within the scope of the information exchanged (production capability, production schedule, production performance, …) The ID shall be used in other parts of the model when the material definition needs to be identified, such as the production capability for this material definition, or a production response identifying the material definition used.",
           "example" : "HG1"
         },
         "version" : {
           "type" : "number",
+          "description" : "The version of this Material Definition described in this message.",
           "example" : 1
         },
         "description" : {
           "type" : "string",
+          "description" : "Additional information about the material definition.",
           "example" : "High Grade 1"
         },
         "materialClassId" : {
           "type" : "string",
+          "description" : "The Material Class that this definition describes.",
           "example" : "ER-HG"
         },
         "parentDefinitionId" : {
           "type" : "string",
+          "description" : "The Material Definition that this definition belongs to.",
           "example" : "ER-DEF-HG"
-        },
-        "assemblyType" : {
-          "type" : "string",
-          "example" : "Logical"
-        },
-        "assemblyRelationship" : {
-          "type" : "string",
-          "example" : "Permanent"
         },
         "effectiveFrom" : {
           "type" : "string",
+          "description" : "The timestamp that this Material Definition is applicable from.",
           "example" : "201808151000"
         },
         "effectiveTo" : {
           "type" : "string",
+          "description" : "The timestamp that this Material Definition is applicable to.",
           "example" : "201808151000"
         },
         "properties" : {
@@ -692,18 +704,22 @@
       "properties" : {
         "id" : {
           "type" : "string",
+          "description" : "An identification of the specific material definition property.",
           "example" : "Fe"
         },
         "description" : {
           "type" : "string",
+          "description" : "Additional information about the material definition property.",
           "example" : "Iron"
         },
         "value" : {
           "type" : "string",
+          "description" : "The value, set of values, or range of the property.",
           "example" : "62"
         },
-        "unitOfMeasure" : {
+        "valueUnitOfMeasure" : {
           "type" : "string",
+          "description" : "The unit of measure of the associated property value, if applicable.",
           "example" : "percentage"
         },
         "properties" : {
