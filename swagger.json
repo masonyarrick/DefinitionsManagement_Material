@@ -488,6 +488,7 @@
   "definitions" : {
     "MaterialClass" : {
       "type" : "object",
+      "description" : "A material class is a representation of groupings of material definitions for a definite purpose such as manufacturing operations definition, scheduling, capability and performance. A material class may be tested by the execution of a material test specification.",
       "required" : [ "id", "version", "hierarchyScopeId", "effectiveFrom", "effectiveTo" ],
       "properties" : {
         "id" : {
@@ -530,6 +531,7 @@
     },
     "MaterialClassProperty" : {
       "type" : "object",
+      "description" : "Properties of a material class shall be presented as material class properties. A material class shall be further characterized through zero or more material class properties. A material class property may be tested by the execution of a material test specification. Material class properties may contain nested material class properties. The material class properties often list the nominal, or standard, values for the material. A material property does not have to match a material class property.",
       "required" : [ "id", "value", "unitOfMeasure" ],
       "properties" : {
         "id" : {
@@ -562,6 +564,7 @@
     },
     "MaterialLot" : {
       "type" : "object",
+      "description" : "A representation of a uniquely identified specific amount of material, either countable or weighable shall be named as a material lot. A material lot describes the planned or actual total quantity or amount of material available, its current state, and its specific property values. A material lot may be tested by the execution of a material test specification.",
       "required" : [ "id", "version", "hierarchyScopeId", "effectiveFrom", "effectiveTo" ],
       "properties" : {
         "id" : {
@@ -627,6 +630,7 @@
     },
     "MaterialLotProperty" : {
       "type" : "object",
+      "description" : "Each material can have unique values for zero or more material lot properties, such as a specific pH value for the specific lot of material, or a specific density for the lot of material. A material lot property may be tested by the execution of a material test specification with results exchanged in a QA test specification result. Material lot properties may contain nested material lot properties.",
       "required" : [ "id", "description", "value", "valueUnitOfMeasure" ],
       "properties" : {
         "id" : {
@@ -653,6 +657,7 @@
     },
     "MaterialDefinition" : {
       "type" : "object",
+      "description" : "A representation of goods with similar name characteristics for the purpose of manufacturing operations definition, scheduling, capability and performance shall be shown as a material definition. A material definition may be tested by the execution of a material test specification. Any material lot shall be associated with one material definition.",
       "required" : [ "id", "version" ],
       "properties" : {
         "id" : {
@@ -700,6 +705,7 @@
     },
     "MaterialDefinitionProperty" : {
       "type" : "object",
+      "description" : "Properties of a material definition shall be defined as material definition properties. A material definition shall be further characterized through zero or more material definition properties. A material definition property may be tested by the execution of a material test specification. Material definition properties may contain nested material definition properties.",
       "required" : [ "id", "value", "unitOfMeasure" ],
       "properties" : {
         "id" : {
