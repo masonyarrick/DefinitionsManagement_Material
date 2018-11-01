@@ -1,9 +1,9 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "description" : "Product definition management shall be defined as the collection of activities that manage all of the Level 3 information about the product required for manufacturing, including the product production rules. Product definition information is shared between product production rules, bill of material and bill of resources. The product production rules contain the information used to instruct a manufacturing operation how to produce a product. This may be called a work master (ISA-95 Part 4), general, site, or master recipe (ANSI/ISA-88.00.01 and IEC 61512-1 definitions), standard operating procedure (SOP), standard operating conditions (SOC), routing, or assembly steps based on the production strategy used. The product definition information is made available to other Level 3 functions and to Level 2 functions as required. Product definition management includes management of the distribution of product production rules. Some of the product production rules may exist in Level 2 and Level 1 equipment. When that is the case, downloads of this information shall be coordinated with other manufacturing operations management functions to avoid affecting production. This information may be included as part of operational commands when the download is part of a production execution management activity.",
-    "version" : "1.0.0",
-    "title" : "Definitions Management Material API",
+    "description" : "The DM Material (Definition) API uses defined messages to query (get) create (post), update (put) or delete individual versions of material objects which are Material Class, Material Definition, Matertial Lot, Material Sublot, and Test Specification. The Post/object messages are used to create a definition of a specific object type. The Put/object messages are used to update a definition of a specific object type. Delete/object messages used to delete a definition of a specific object type. The DM Material (Definitions) API provides Developers the Get/object messages to query for definition versions of a specific object type.  The DM function services production and support operations by managing all Level 3 and some Level 2 information definition. The primary work definition object is the work master which is the requirements for a work task in a scheduled job order.  The work master contains the required resourse specifications (bill of materials and required resources), the workflow specification for execution, and parameter specifications. The work master includes    1) Material specification object with material use for production operations as material produced, consumable, material consumed, by-product produced, co-product produced, and yield produced. The material specification is typically represents the manufacturing bill of materials (BoM).    2) Required equipment specifications and personnel specifications. The resource specifications define the applied resource definition or class objects.    3) Workflow specification object defines a workflow as a collection of nodes and connections with the rules for relationship and dependency. A node may reference a chilld work master for more detail. The workflow specification can reference a master recipe (ANSI/ISA-88.00.01 and IEC 61512-1 definitions), standard operating procedure (SOP), standard operating conditions (SOC), routing, or assembly steps based on the production strategy used.      4) parameter specification object defines the job order specific parameters and rule sets which instructs how L3 manufacturing operations and L2 process sequences how to execute production or supporting operations.     Each work master (ISA-95 Part 4) defines its scope as an equipment heirachy level as either general, site, work cell, unit or lower.",
+    "version" : "1.1.0",
+    "title" : "Definition Management Material API",
     "contact" : {
       "email" : "mason.yarrick@bhp.com"
     },
@@ -30,7 +30,7 @@
         "parameters" : [ {
           "in" : "path",
           "name" : "id",
-          "description" : "Material Class ID",
+          "description" : "Material Class Id",
           "required" : true,
           "type" : "string"
         }, {
@@ -38,13 +38,13 @@
           "name" : "version",
           "description" : "The version of the spec to get the class from",
           "required" : false,
-          "type" : "number"
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/MaterialClass"
+              "$ref" : "#/definitions/materialClass"
             }
           },
           "404" : {
@@ -61,7 +61,7 @@
         "parameters" : [ {
           "in" : "path",
           "name" : "id",
-          "description" : "Material Class ID",
+          "description" : "Material Class Id",
           "required" : true,
           "type" : "string"
         } ],
@@ -78,12 +78,12 @@
         "tags" : [ "admins" ],
         "summary" : "updates material classes",
         "operationId" : "updateMaterialClass",
-        "description" : "Updates material classes with specific IDs\n",
+        "description" : "Updates material classes with specific Ids\n",
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "path",
           "name" : "id",
-          "description" : "Material Class ID",
+          "description" : "Material Class Id",
           "required" : true,
           "type" : "string"
         }, {
@@ -91,7 +91,7 @@
           "name" : "materialClass",
           "description" : "The material class to create.",
           "schema" : {
-            "$ref" : "#/definitions/MaterialClass"
+            "$ref" : "#/definitions/materialClass"
           }
         } ],
         "responses" : {
@@ -132,9 +132,9 @@
         }, {
           "in" : "query",
           "name" : "version",
-          "description" : "the version of the spec to retrieve the class for",
+          "description" : "the version of the spec to retrieve the material class for",
           "required" : false,
-          "type" : "number"
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -142,7 +142,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/MaterialClass"
+                "$ref" : "#/definitions/materialClass"
               }
             }
           },
@@ -162,7 +162,7 @@
           "name" : "materialClass",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/MaterialClass"
+            "$ref" : "#/definitions/materialClass"
           }
         } ],
         "responses" : {
@@ -180,26 +180,26 @@
         "tags" : [ "developers" ],
         "summary" : "gets material definitions",
         "operationId" : "getMaterialDefinition",
-        "description" : "Gets material definitions with specific IDs\n",
+        "description" : "Gets material definitions with specific Ids\n",
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "path",
           "name" : "id",
-          "description" : "Material Definition ID",
+          "description" : "Material Definition Id",
           "required" : true,
           "type" : "string"
         }, {
           "in" : "query",
           "name" : "version",
-          "description" : "The version of the spec to get the defintions for",
+          "description" : "The version of the spec to get the material defintions for",
           "required" : false,
-          "type" : "number"
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/MaterialDefinition"
+              "$ref" : "#/definitions/materialDefinition"
             }
           },
           "404" : {
@@ -211,12 +211,12 @@
         "tags" : [ "admins" ],
         "summary" : "deletes material definitions",
         "operationId" : "deleteMaterialDefinition",
-        "description" : "Deletes material definitions with specific IDs\n",
+        "description" : "Deletes material definitions with specific Ids\n",
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "path",
           "name" : "id",
-          "description" : "Material Definition ID",
+          "description" : "Material Definition Id",
           "required" : true,
           "type" : "string"
         } ],
@@ -233,12 +233,12 @@
         "tags" : [ "admins" ],
         "summary" : "updates material definitions",
         "operationId" : "updateMaterialDefinition",
-        "description" : "Updates material definitions with specific IDs\n",
+        "description" : "Updates material definitions with specific Ids\n",
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "path",
           "name" : "id",
-          "description" : "Material Definition ID",
+          "description" : "Material Definition Id",
           "required" : true,
           "type" : "string"
         }, {
@@ -246,7 +246,7 @@
           "name" : "materialDefinition",
           "description" : "The material definition to update.",
           "schema" : {
-            "$ref" : "#/definitions/MaterialDefinition"
+            "$ref" : "#/definitions/materialDefinition"
           }
         } ],
         "responses" : {
@@ -284,9 +284,9 @@
         }, {
           "in" : "query",
           "name" : "version",
-          "description" : "the version of the spec to retrieve the definitions for",
+          "description" : "the version of the spec to retrieve the material definitions for",
           "required" : false,
-          "type" : "number"
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -294,7 +294,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/MaterialDefinition"
+                "$ref" : "#/definitions/materialDefinition"
               }
             }
           },
@@ -314,7 +314,7 @@
           "name" : "materialDefinition",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/MaterialDefinition"
+            "$ref" : "#/definitions/materialDefinition"
           }
         } ],
         "responses" : {
@@ -332,26 +332,26 @@
         "tags" : [ "developers" ],
         "summary" : "gets material lots",
         "operationId" : "getMaterialLot",
-        "description" : "Gets material lots with specific IDs\n",
+        "description" : "Gets material lots with specific Ids\n",
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "path",
           "name" : "id",
-          "description" : "Material Lot ID",
+          "description" : "Material Lot Id",
           "required" : true,
           "type" : "string"
         }, {
           "in" : "query",
           "name" : "version",
-          "description" : "The version of the spec to retrieve the lot for.",
+          "description" : "The version of the spec to retrieve the material lot for.",
           "required" : false,
-          "type" : "number"
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
             "description" : "Successful operation",
             "schema" : {
-              "$ref" : "#/definitions/MaterialLot"
+              "$ref" : "#/definitions/materialLot"
             }
           },
           "404" : {
@@ -363,12 +363,12 @@
         "tags" : [ "admins" ],
         "summary" : "deletes material lots",
         "operationId" : "deleteMaterialLot",
-        "description" : "Delete existing lots of material from the system\n",
+        "description" : "Delete existing material lots of material from the system\n",
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "path",
           "name" : "id",
-          "description" : "Material Lot ID",
+          "description" : "Material Lot Id",
           "required" : true,
           "type" : "string"
         } ],
@@ -385,12 +385,12 @@
         "tags" : [ "admins" ],
         "summary" : "updates material lots",
         "operationId" : "updateMaterialLot",
-        "description" : "Update existing lots of material in the system\n",
+        "description" : "Update existing material lots of material in the system\n",
         "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "path",
           "name" : "id",
-          "description" : "Material Lot ID",
+          "description" : "Material Lot Id",
           "required" : true,
           "type" : "string"
         }, {
@@ -399,7 +399,7 @@
           "description" : "The new state of the material lot.",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/MaterialLot"
+            "$ref" : "#/definitions/materialLot"
           }
         } ],
         "responses" : {
@@ -442,7 +442,7 @@
           "name" : "version",
           "description" : "the version of the spec to get the lots for",
           "required" : false,
-          "type" : "number"
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -450,7 +450,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/MaterialLot"
+                "$ref" : "#/definitions/materialLot"
               }
             }
           },
@@ -471,7 +471,7 @@
           "description" : "The Material Lot to create",
           "required" : true,
           "schema" : {
-            "$ref" : "#/definitions/MaterialLot"
+            "$ref" : "#/definitions/materialLot"
           }
         } ],
         "responses" : {
@@ -486,53 +486,85 @@
     }
   },
   "definitions" : {
-    "MaterialClass" : {
+    "materialClass" : {
       "type" : "object",
-      "description" : "A material class is a representation of groupings of material definitions for a definite purpose such as manufacturing operations definition, scheduling, capability and performance. A material class may be tested by the execution of a material test specification.",
+      "description" : "A representation of groupings of material definitions for a definite purpose such as manufacturing work and operations definition, scheduling, capability and performance shall be presented as a material class. A material definition shall belong to zero or more material classes. A material class may be defined as a specialization of zero or more material classes. A material class may be made up of zero or more material classes. A material class may be tested by the evaluation of the test specification criteria in the test specification that references the evaluated property and may be recorded in an evaluated criterion result attribute in the test result.",
       "required" : [ "id", "version", "hierarchyScopeId", "effectiveFrom", "effectiveTo" ],
       "properties" : {
         "id" : {
           "type" : "string",
-          "description" : "A unique identification of a specific material class, within the scope of the information exchanged (production capability, production schedule, production performance, …) The ID shall be used in other parts of the model when the material class needs to be identified, such as the production capability for this material class, or a production response identifying the material class used.",
+          "description" : "A unique identification of a specific material class, within the scope of the information exchanged (production work capability, production work schedule, production work performance, …) The Id shall be used in other parts of the model when the material class needs to be identified, such as the work and operations capability for this material class, or a work or job response identifying the material class used.",
           "example" : "HIGH GRADE"
         },
         "version" : {
-          "type" : "number",
-          "description" : "The version number of this Material Class.",
-          "example" : 1
+          "type" : "string",
+          "description" : "Custom non-ISA-95 attribute to meet BHP requirement. The version number of this Material Class.",
+          "example" : 1.0
         },
         "description" : {
           "type" : "string",
           "description" : "Additional information about the material class.",
           "example" : "High Grade Ore"
         },
-        "parentClassId" : {
+        "hierarchyScopeId" : {
           "type" : "string",
-          "description" : "The class that this Material Class belongs to.",
-          "example" : "IN-SITU"
+          "description" : "Identifies where the exchanged information fits within the role based equipment hierarchy. Optionally, hierarchy scope defines the scope of the object, such as the site or area.",
+          "example" : "Eastern Ridge (site)"
+        },
+        "materialClassParentIds" : {
+          "type" : "array",
+          "description" : "The classes that this material class belongs to.This material class(s) include properties of the material class.",
+          "example" : "IN-SITU 1.1",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "materialClassChildIds" : {
+          "type" : "array",
+          "description" : "The parent material class is whole of this child material class(s) as the part.",
+          "example" : "IN-SITU 1.1.1",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "assemblyType" : {
+          "description" : "Defines the type of the assembly. Defined types are physical, the components of the assembly are physically connected or in the same area; and logical, the components of the assembly are not necessarily physically connected or in the same area.",
+          "example" : "physical"
+        },
+        "assemblyRelationship" : {
+          "description" : "Defines the type of the relationships. Defined types are  permanent, an assembly that is not intended to be split during the production process; and transient, a temporary assembly using during production, such as a pallet of different materials or a batch kit.",
+          "example" : "permanent"
+        },
+        "testSpecifications" : {
+          "type" : "array",
+          "description" : "The test specification(s) used to evaluate this testable object.",
+          "example" : "TS IN-SITU 1.1",
+          "items" : {
+            "$ref" : "#/definitions/testSpecification"
+          }
         },
         "effectiveFrom" : {
           "type" : "string",
-          "description" : "The timestamp that this Material Class is effective from.",
-          "example" : "201808151000"
+          "description" : "Custom non-ISA-95 attribute to meet BHP requirement. The timestamp that this Material Class is effective from.",
+          "example" : "ISO 8601: yyyy-mm-ddThh:mm:ss for local time as 2002-09-22T09:15:23"
         },
         "effectiveTo" : {
           "type" : "string",
-          "description" : "The timestamp that this Material Class is effective to.",
-          "example" : "201808151000"
+          "description" : "Custom non-ISA-95 attribute to meet BHP requirement. The timestamp that this Material Class is effective to.",
+          "example" : "ISO 8601: yyyy-mm-ddThh:mm:ss for local time as 2002-09-22T09:15:23"
         },
-        "properties" : {
+        "materialClassProperties" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/definitions/MaterialClassProperty"
+            "$ref" : "#/definitions/materialClassProperty"
           }
         }
       }
     },
-    "MaterialClassProperty" : {
+    "materialClassProperty" : {
       "type" : "object",
-      "description" : "Properties of a material class shall be presented as material class properties. A material class shall be further characterized through zero or more material class properties. A material class property may be tested by the execution of a material test specification. Material class properties may contain nested material class properties. The material class properties often list the nominal, or standard, values for the material. A material property does not have to match a material class property.",
-      "required" : [ "id", "value", "unitOfMeasure" ],
+      "description" : "Properties of a material class shall be presented as material class properties. A material class may define zero or more material class properties. A material class property may be tested to the evaluated property in a test specification where the measured results may be recorded in a property measurement attribute in a test result. The measured results may also be evaluated to the test specification criteria in the test specification that references the evaluated property where they may be recorded in an evaluated criterion result attribute in the test result. Material class property(s) may contain nested material class property(s).",
+      "required" : [ "id", "value", "valueUnitOfMeasure" ],
       "properties" : {
         "id" : {
           "type" : "string",
@@ -544,137 +576,44 @@
           "description" : "Additional information about the material class property.",
           "example" : "Iron"
         },
+        "propertyType" : {
+          "type" : "string",
+          "description" : "Defines the type of the property. Defined types are 1) class type, the property value is defined for the class and there is no value associated with an instance; 2)  instance type, the property value of the class is undefined; and 3) default type, the property value is defined for the class as the default instance value, but individual instances of the class may redefine specific values.",
+          "example" : "Instance type"
+        },
+        "materialClassPropertyChildIds" : {
+          "type" : "array",
+          "description" : "The nested material class property(s) makes up part of this material class property as the whole.",
+          "example" : "IN-SITU Propery 1.1.1",
+          "items" : {
+            "type" : "string"
+          }
+        },
         "value" : {
           "type" : "string",
-          "description" : "The value, set of values, or range of the property.",
+          "description" : "The value, set of values, or range of the material class property.",
           "example" : "62"
         },
         "valueUnitOfMeasure" : {
           "type" : "string",
-          "description" : "The unit of measure of the associated property value, if applicable.",
+          "description" : "The unit of measure of the associated material class property value, if applicable.",
           "example" : "percentage"
-        },
-        "properties" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/MaterialClassProperty"
-          }
         }
       }
     },
-    "MaterialLot" : {
+    "materialDefinition" : {
       "type" : "object",
-      "description" : "A representation of a uniquely identified specific amount of material, either countable or weighable shall be named as a material lot. A material lot describes the planned or actual total quantity or amount of material available, its current state, and its specific property values. A material lot may be tested by the execution of a material test specification.",
-      "required" : [ "id", "version", "hierarchyScopeId", "effectiveFrom", "effectiveTo" ],
+      "description" : "A representation of a material with similar characteristics for the purpose of manufacturing operations definition, scheduling, capability and performance shall be presented as a material definition. A material definition may be tested by the evaluation of the test specification criteria in the test specification that references the evaluated property and may be recorded in an evaluated criterion result attribute in the test result. Material definitions can include city water, hydrochloric acid from Vendor A, and grade B aluminum. Any material lot shall be associated with one material definition.",
+      "required" : [ "id", "version", "effectiveFrom", "effectiveTo" ],
       "properties" : {
         "id" : {
           "type" : "string",
-          "description" : "A unique identification of a specific material lot, within the scope of the information exchanged (production capability, production schedule, production performance, …) The ID shall be used in other parts of the model when the material lot needs to be identified, such as the production capability for this material lot, or a production response identifying the material lot used.",
-          "example" : "Block XYZ"
-        },
-        "version" : {
-          "type" : "number",
-          "description" : "The version number of this instance of the Material Lot.",
-          "example" : 1
-        },
-        "status" : {
-          "type" : "string",
-          "description" : "Status of the material lot. For example, released, approved, blocked, in process, in quality check.",
-          "example" : "In Process"
-        },
-        "materialClassId" : {
-          "type" : "string",
-          "example" : "In-Situ"
-        },
-        "materialDefinitionId" : {
-          "type" : "string",
-          "example" : "HG1"
-        },
-        "description" : {
-          "type" : "string",
-          "description" : "Additional information about the material lot.",
-          "example" : "ER Crusher"
-        },
-        "storageLocationId" : {
-          "type" : "string",
-          "description" : "An identification of the storage location or a physical location of the material lot.",
-          "example" : "ER-PC"
-        },
-        "quantity" : {
-          "type" : "number",
-          "description" : "The quantity of the material lot.",
-          "example" : 5000
-        },
-        "quantityUnitOfMeasure" : {
-          "type" : "string",
-          "description" : "The unit of measure of the associated quantity, if applicable.",
-          "example" : "Tonnes"
-        },
-        "effectiveFrom" : {
-          "type" : "string",
-          "description" : "The timestamp that this state of the Material Lot is effective from.",
-          "example" : "201808151000"
-        },
-        "effectiveTo" : {
-          "type" : "string",
-          "description" : "The timestamp that this state of the Material Lot expires.",
-          "example" : "201808151000"
-        },
-        "spatialDefinition" : {
-          "type" : "array",
-          "description" : "The location or footprint of this item.",
-          "items" : {
-            "$ref" : "#/definitions/SpatialDefinition"
-          }
-        },
-        "properties" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/MaterialLotProperty"
-          }
-        }
-      }
-    },
-    "MaterialLotProperty" : {
-      "type" : "object",
-      "description" : "Each material can have unique values for zero or more material lot properties, such as a specific pH value for the specific lot of material, or a specific density for the lot of material. A material lot property may be tested by the execution of a material test specification with results exchanged in a QA test specification result. Material lot properties may contain nested material lot properties.",
-      "required" : [ "id", "description", "value", "valueUnitOfMeasure" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "An identification of a specific material class property.",
-          "example" : "DigRate"
-        },
-        "description" : {
-          "type" : "string",
-          "description" : "Additional information about the material class property.",
-          "example" : "Dig Rate"
-        },
-        "value" : {
-          "type" : "string",
-          "description" : "The value, set of values, or range of the property.",
-          "example" : 3600
-        },
-        "valueUnitOfMeasure" : {
-          "type" : "string",
-          "description" : "The unit of measure of the associated property value, if applicable.",
-          "example" : "Tonnes/Hour"
-        }
-      }
-    },
-    "MaterialDefinition" : {
-      "type" : "object",
-      "description" : "A representation of goods with similar name characteristics for the purpose of manufacturing operations definition, scheduling, capability and performance shall be shown as a material definition. A material definition may be tested by the execution of a material test specification. Any material lot shall be associated with one material definition.",
-      "required" : [ "id", "version" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "A unique identification of a specific material definition, within the scope of the information exchanged (production capability, production schedule, production performance, …) The ID shall be used in other parts of the model when the material definition needs to be identified, such as the production capability for this material definition, or a production response identifying the material definition used.",
+          "description" : "A unique identification of a specific material definition, within the scope of the information exchanged (operations or work capability, schedule, performance, …) The Id shall be used in other parts of the model when the material definition needs to be identified, such as the operations or work capability for this material definition, or a operations or work response identifying the material definition used.",
           "example" : "HG1"
         },
         "version" : {
-          "type" : "number",
-          "description" : "The version of this Material Definition described in this message.",
+          "type" : "string",
+          "description" : "Custom non-ISA-95 attribute to meet BHP requirement. The version of this Material Definition described in this message.",
           "example" : 1
         },
         "description" : {
@@ -682,38 +621,72 @@
           "description" : "Additional information about the material definition.",
           "example" : "High Grade 1"
         },
-        "materialClassId" : {
+        "hierarchyScopeId" : {
           "type" : "string",
-          "description" : "The Material Class that this definition describes.",
-          "example" : "ER-HG"
+          "description" : "Identifies where the exchanged information fits within the role based equipment hierarchy. Optionally, hierarchy scope defines the scope of the object, such as the site or area.",
+          "example" : "Eastern Ridge (site)"
         },
-        "parentDefinitionId" : {
-          "type" : "string",
-          "description" : "The Material Definition that this definition belongs to.",
-          "example" : "ER-DEF-HG"
+        "materialClassIds" : {
+          "type" : "array",
+          "description" : "The material class(s) that this material definition describes.",
+          "example" : "ER-HG",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "materialDefinitionChildIds" : {
+          "type" : "array",
+          "description" : "The material definition(s) that are part of this materail definition as a whole.",
+          "example" : "ER-DEF-HG",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "spatialDefinition" : {
+          "type" : "array",
+          "description" : "The location or footprint of this item.",
+          "items" : {
+            "$ref" : "#/definitions/spatialDefinition"
+          }
+        },
+        "assemblyType" : {
+          "description" : "Defines the type of the assembly. Defined types are physical, the components of the assembly are physically connected or in the same area; and logical, the components of the assembly are not necessarily physically connected or in the same area.",
+          "example" : "physical"
+        },
+        "assemblyRelationship" : {
+          "description" : "Defines the type of the relationships. Defined types are  permanent, an assembly that is not intended to be split during the production process; and transient, a temporary assembly using during production, such as a pallet of different materials or a batch kit.",
+          "example" : "permanent"
+        },
+        "testSpecifications" : {
+          "type" : "array",
+          "description" : "The test specification(s) used to evaluate this testable object.",
+          "example" : "TS IN-SITU 1.1",
+          "items" : {
+            "$ref" : "#/definitions/testSpecification"
+          }
         },
         "effectiveFrom" : {
           "type" : "string",
-          "description" : "The timestamp that this Material Definition is applicable from.",
-          "example" : "201808151000"
+          "description" : "Custom non-ISA-95 attribute to meet BHP requirement. The timestamp that this Material Definition is applicable from.",
+          "example" : "ISO 8601: yyyy-mm-ddThh:mm:ss for local time as 2002-09-22T09:15:23"
         },
         "effectiveTo" : {
           "type" : "string",
-          "description" : "The timestamp that this Material Definition is applicable to.",
-          "example" : "201808151000"
+          "description" : "Custom non-ISA-95 attribute to meet BHP requirement. The timestamp that this Material Definition is applicable to.",
+          "example" : "ISO 8601: yyyy-mm-ddThh:mm:ss for local time as 2002-09-22T09:15:23"
         },
-        "properties" : {
+        "materialDefinitionProperties" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/definitions/MaterialDefinitionProperty"
+            "$ref" : "#/definitions/materialDefinitionProperty"
           }
         }
       }
     },
-    "MaterialDefinitionProperty" : {
+    "materialDefinitionProperty" : {
       "type" : "object",
-      "description" : "Properties of a material definition shall be defined as material definition properties. A material definition shall be further characterized through zero or more material definition properties. A material definition property may be tested by the execution of a material test specification. Material definition properties may contain nested material definition properties.",
-      "required" : [ "id", "value", "unitOfMeasure" ],
+      "description" : "Properties of a material definition shall be presented as material definition properties. A material definition may define zero or more material definition properties. A material definition property may be tested to the evaluated property in a test specification where the measured results may be recorded in a property measurement attribute in a test result. The measured results may also be evaluated to the test specification criteria in the test specification that references the evaluated property attribute where they may be recorded in an evaluated criterion result attribute in the test result. Material definition property(s) may contain nested material definition property(s).",
+      "required" : [ "id", "value", "valueUnitOfMeasure" ],
       "properties" : {
         "id" : {
           "type" : "string",
@@ -725,25 +698,516 @@
           "description" : "Additional information about the material definition property.",
           "example" : "Iron"
         },
+        "propertyType" : {
+          "type" : "string",
+          "description" : "Defines the type of the material definition property. Defined types are 1) class type, the property value is defined for the class and there is no value associated with an instance; 2)  instance type, the property value of the class is undefined; and 3) default type, the property value is defined for the class as the default instance value, but individual instances of the class may redefine specific values.",
+          "example" : "Instance type"
+        },
+        "materialClassPropertyId" : {
+          "type" : "string",
+          "description" : "If the material definition supports a material class, the material class property(s) is applied in the material definition property(s). This material definition property maps to the corresponding material class property.",
+          "example" : "IN-SITU Propery 1.1.1"
+        },
+        "materialDefinitionsPropertyChildIds" : {
+          "type" : "array",
+          "description" : "The nested material definition property(s) makes up part of this material definition property as the whole.",
+          "example" : "IN-SITU Propery 1.1.1",
+          "items" : {
+            "type" : "string"
+          }
+        },
         "value" : {
           "type" : "string",
-          "description" : "The value, set of values, or range of the property.",
+          "description" : "The value, set of values, or range of the material definition property.",
           "example" : "62"
         },
         "valueUnitOfMeasure" : {
           "type" : "string",
-          "description" : "The unit of measure of the associated property value, if applicable.",
+          "description" : "The unit of measure of the associated material definition property value, if applicable.",
           "example" : "percentage"
+        }
+      }
+    },
+    "materialLot" : {
+      "type" : "object",
+      "description" : "A uniquely identified specific amount of material, either countable or weighable shall be presented as a material lot. A material lot describes the planned or actual total quantity or amount of material available, its current state, and its specific property values. A material lot may be tested by the evaluation of a test specification.",
+      "required" : [ "id", "version", "materialDefinitionId", "effectiveFrom", "effectiveTo" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "A unique identification of a specific material lot, within the scope of the information exchanged (operations and work capability, schedule, performance, …) The ID shall be used in other parts of the model when the material lot needs to be identified, such as the operations or work capability for this material lot, or a oerations, work, and work response identifying the material lot used.",
+          "example" : "Block XYZ"
         },
-        "properties" : {
+        "version" : {
+          "type" : "string",
+          "description" : "Custom non-ISA-95 attribute to meet BHP requirement. The version number of this instance of the material lot.",
+          "example" : 1
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "Additional information about the material lot.",
+          "example" : "ER Crusher"
+        },
+        "hierarchyScopeId" : {
+          "type" : "string",
+          "description" : "Identifies where the exchanged information fits within the role based equipment hierarchy. Optionally, hierarchy scope defines the scope of the object, such as the site or area.",
+          "example" : "Eastern Ridge (site)"
+        },
+        "materialLotChildIds" : {
+          "type" : "array",
+          "description" : "This child material lot(s) is part of the material lot as the whole.",
+          "example" : "In-Situ",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "materialSublotParentId" : {
+          "type" : "string",
+          "description" : "This parent material sublot is whole of the material lot as the part.",
+          "example" : "In-Situ"
+        },
+        "materialSublotChildIds" : {
+          "type" : "array",
+          "description" : "This child material sublot(s) is part of the material lot as the whole.",
+          "example" : "In-Situ",
+          "items" : {
+            "$ref" : "#/definitions/materialSublot"
+          }
+        },
+        "materialDefinitionIds" : {
+          "type" : "array",
+          "description" : "The material definition that defines this material lot. This material lot objects support the material definition property(s) associated with the material definition. The material lot can act as a container for other objects where it does not have material definition association.",
+          "example" : "HG1",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "spatialDefinition" : {
+          "type" : "array",
+          "description" : "The location or footprint of this item.",
+          "items" : {
+            "$ref" : "#/definitions/spatialDefinition"
+          }
+        },
+        "assemblyType" : {
+          "description" : "Defines the type of the assembly. Defined types are physical, the components of the assembly are physically connected or in the same area; and logical, the components of the assembly are not necessarily physically connected or in the same area.",
+          "example" : "physical"
+        },
+        "assemblyRelationship" : {
+          "description" : "Defines the type of the relationships. Defined types are  permanent, an assembly that is not intended to be split during the production process; and transient, a temporary assembly using during  production, such as a pallet of different materials or a batch kit.",
+          "example" : "permanent"
+        },
+        "testSpecifications" : {
+          "type" : "array",
+          "description" : "The test specification(s) used to evaluate this testable object.",
+          "example" : "TS IN-SITU 1.1",
+          "items" : {
+            "$ref" : "#/definitions/testSpecification"
+          }
+        },
+        "effectiveFrom" : {
+          "type" : "string",
+          "description" : "Custom non-ISA-95 attribute to meet BHP requirement. The timestamp that this state of the Material Lot is effective from.",
+          "example" : "ISO 8601: yyyy-mm-ddThh:mm:ss for local time as 2002-09-22T09:15:23"
+        },
+        "effectiveTo" : {
+          "type" : "string",
+          "description" : "Custom non-ISA-95 attribute to meet BHP requirement. The timestamp that this state of the Material Lot expires.",
+          "example" : "ISO 8601: yyyy-mm-ddThh:mm:ss for local time as 2002-09-22T09:15:23"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "Status of the material lot. For example, released, approved, blocked, in process, in quality check.",
+          "example" : "In Process"
+        },
+        "disposition" : {
+          "type" : "string",
+          "description" : "Planning and logistics disposition of a material lot or assembly of material lots. Defined values for the disposition of a material lot are 1)  planned, a material lot that does not yet physically exist, is assigned to an operations request (segment requirement) or work request (Part 4 object) or job order (Part 4 object); 2) in process, the material lot is in the process of being worked on; 3) restricted, a material lot is not permitted for normal use due to a restriction condition; 4) unrestricted, material lot is permitted for normal use without restriction; 5) closed:   material lot has been reconciled as completely consumed, sold or disposed of.",
+          "example" : "Planned"
+        },
+        "quantity" : {
+          "type" : "number",
+          "description" : "The quantity of the material lot.",
+          "example" : 5000
+        },
+        "quantityUnitOfMeasure" : {
+          "type" : "string",
+          "description" : "The unit of measure of the associated quantity, if applicable.",
+          "example" : "Tonnes"
+        },
+        "materialLotProperties" : {
           "type" : "array",
           "items" : {
-            "$ref" : "#/definitions/MaterialDefinitionProperty"
+            "$ref" : "#/definitions/materialLotProperty"
           }
         }
       }
     },
-    "SpatialDefinition" : {
+    "materialLotProperty" : {
+      "type" : "object",
+      "description" : "Each material can have unique values for zero or more material lot properties, such as a specific pH value for the specific lot of material, or a specific density for the lot of material. A material lot property may be tested by the execution of a material test specification with results exchanged in a QA test specification result. Material lot properties may contain nested material lot properties.",
+      "required" : [ "id", "materialDefinitionPropertyId", "value", "valueUnitOfMeasure" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "An identification of a specific material definition property.",
+          "example" : "DigRate"
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "Additional information about the material definition property.",
+          "example" : "Dig Rate"
+        },
+        "materialDefinitionPropertyId" : {
+          "type" : "string",
+          "description" : "If the material definition supports a material class, the material class property(s) is applied in the material definition property(s). This material definition property maps to the corresponding material class property.",
+          "example" : "IN-SITU Propery 1.1.1"
+        },
+        "materialLotPropertyChildIds" : {
+          "type" : "array",
+          "description" : "The nested material definition property(s) makes up part of this material definition property as the whole.",
+          "example" : "IN-SITU Propery 1.1.1",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "value" : {
+          "type" : "string",
+          "description" : "The value, set of values, or range of the material definition property.",
+          "example" : 3600
+        },
+        "valueUnitOfMeasure" : {
+          "type" : "string",
+          "description" : "The unit of measure of the associated material definition property value, if applicable.",
+          "example" : "Tonnes/Hour"
+        }
+      }
+    },
+    "materialSublot" : {
+      "type" : "object",
+      "description" : "A uniquely identified specific amount of material, either countable or weighable shall be presented as a material sublot. A material sublot describes the planned or actual total quantity or amount of material available, its current state, and its specific property values. A material sublot may be tested by the evaluation of a test specification.",
+      "required" : [ "id", "version", "materialDefinitionPropertyId", "effectiveFrom", "effectiveTo" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "A unique identification of a specific material sublot, within the scope of the information exchanged (operations and work capability, schedule, performance, …) The ID shall be used in other parts of the model when the material sublot needs to be identified, such as the operations or work capability for this material sublot, or a oerations, work, and work response identifying the material sublot used.",
+          "example" : "Block XYZ"
+        },
+        "version" : {
+          "type" : "string",
+          "description" : "Custom non-ISA-95 attribute to meet BHP requirement. The version number of this instance of the material sublot.",
+          "example" : 1
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "Additional information about the material sublot.",
+          "example" : "ER Crusher"
+        },
+        "hierarchyScopeId" : {
+          "type" : "string",
+          "description" : "Identifies where the exchanged information fits within the role based equipment hierarchy. Optionally, hierarchy scope defines the scope of the object, such as the site or area.",
+          "example" : "Eastern Ridge (site)"
+        },
+        "materialLotChildIds" : {
+          "type" : "array",
+          "description" : "This child material lot(s) is part of the material sublot as the whole.",
+          "example" : "In-Situ",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "materialLotParentId" : {
+          "type" : "string",
+          "description" : "This parent material lot is whole of the material sublot as the part.",
+          "example" : "In-Situ"
+        },
+        "materialSublotChildIds" : {
+          "type" : "array",
+          "description" : "This child material sublot(s) is part of the material sublot as the whole.",
+          "example" : "In-Situ",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "spatialDefinition" : {
+          "type" : "array",
+          "description" : "The location or footprint of this item.",
+          "items" : {
+            "$ref" : "#/definitions/spatialDefinition"
+          }
+        },
+        "assemblyType" : {
+          "description" : "Defines the type of the assembly. Defined types are physical, the components of the assembly are physically connected or in the same area; and logical, the components of the assembly are not necessarily physically connected or in the same area.",
+          "example" : "physical"
+        },
+        "assemblyRelationship" : {
+          "description" : "Defines the type of the relationships. Defined types are  permanent, an assembly that is not intended to be split during the production process; and transient, a temporary assembly using during  production, such as a pallet of different materials or a batch kit.",
+          "example" : "permanent"
+        },
+        "testSpecifications" : {
+          "type" : "array",
+          "description" : "The test specification(s) used to evaluate this testable object.",
+          "example" : "TS IN-SITU 1.1",
+          "items" : {
+            "$ref" : "#/definitions/testSpecification"
+          }
+        },
+        "effectiveFrom" : {
+          "type" : "string",
+          "description" : "Custom non-ISA-95 attribute to meet BHP requirement. The timestamp that this state of the Material Lot is effective from.",
+          "example" : "ISO 8601: yyyy-mm-ddThh:mm:ss for local time as 2002-09-22T09:15:23"
+        },
+        "effectiveTo" : {
+          "type" : "string",
+          "description" : "Custom non-ISA-95 attribute to meet BHP requirement. The timestamp that this state of the Material Lot expires.",
+          "example" : "ISO 8601: yyyy-mm-ddThh:mm:ss for local time as 2002-09-22T09:15:23"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "Status of the material lot. For example, released, approved, blocked, in process, in quality check.",
+          "example" : "In Process"
+        },
+        "disposition" : {
+          "type" : "string",
+          "description" : "Planning and logistics disposition of a material lot or assembly of material lots. Defined values for the disposition of a material lot are 1)  planned, a material lot that does not yet physically exist, is assigned to an operations request (segment requirement) or work request (Part 4 object) or job order (Part 4 object); 2) in process, the material lot is in the process of being worked on; 3) restricted, a material lot is not permitted for normal use due to a restriction condition; 4) unrestricted, material lot is permitted for normal use without restriction; 5) closed:   material lot has been reconciled as completely consumed, sold or disposed of.",
+          "example" : "Planned"
+        },
+        "quantity" : {
+          "type" : "number",
+          "description" : "The quantity of the material lot.",
+          "example" : 5000
+        },
+        "quantityUnitOfMeasure" : {
+          "type" : "string",
+          "description" : "The unit of measure of the associated quantity, if applicable.",
+          "example" : "Tonnes"
+        },
+        "materialLotProperties" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/materialLotProperty"
+          }
+        }
+      }
+    },
+    "testSpecification" : {
+      "description" : "The test specification details the test specification criteria and the tested evaluated property(s) required for a testable object (personnel class, person, equipment class, equipment, material class, material definition, material lot, material sublot) to match the quality or performance requirements of an operations requirement from a schedule, the business or particular customers. The test specification communicates the test tolerances and related target values for a specific testable object referencing a set of operations test requirements for context of the test. A test specification may contain other test specifications to form a hierarchy of test specifications. When a hierarchy of test specifications are used, the result of the parent object in the hierarchy shall be the worst-case result of all the respective child object results.",
+      "required" : [ "id", "version" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "Required attribute. Uniquely identifies a test specification for certifying one or more test specification criteria for one or more evaluated property.",
+          "example" : "TS-EXT"
+        },
+        "version" : {
+          "type" : "string",
+          "description" : "An identification of the version of the test specification.",
+          "example" : "TS-EXT 1.1"
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "Contains additional information and descriptions of the test specification.",
+          "example" : "Test specification for Extraction"
+        },
+        "hierarchyScopeId" : {
+          "type" : "string",
+          "description" : "Identifies where the exchanged information fits within the role based equipment hierarchy. Optionally, hierarchy scope defines the scope of the object, such as the site or area.",
+          "example" : "Eastern Ridge (site)"
+        },
+        "testSpecificationChildIds" : {
+          "type" : "array",
+          "description" : "The child test specifications of this test specification..",
+          "example" : "EX-TRAVEL 1.0",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "operationsTestRequirementIds" : {
+          "type" : "array",
+          "description" : "The operations test requirement ID(s) evaluated by this test specification.",
+          "example" : "MD-grade 1.1",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "testableObjectIds" : {
+          "type" : "array",
+          "description" : "The ID of the testable object tested by this test specification",
+          "example" : "MD-grade 1.1",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "effectiveStartDate" : {
+          "type" : "string",
+          "description" : "The effective start date and time for use of the test specification or set of test specifications",
+          "example" : "ISO 8601: yyyy-mm-ddThh:mm:ss for local time as 2002-09-22T09:15:23"
+        },
+        "effectiveEndDate" : {
+          "type" : "string",
+          "description" : "The effective end date and time for use of the test specification or set of test specifications",
+          "example" : "ISO 8601: yyyy-mm-ddThh:mm:ss for local time as 2002-09-22T09:15:23"
+        },
+        "publishedDate" : {
+          "type" : "string",
+          "description" : "The date and time test specification was published or generated",
+          "example" : "ISO 8601: yyyy-mm-ddThh:mm:ss for local time as 2002-09-22T09:15:23"
+        },
+        "testSampleSize" : {
+          "type" : "string",
+          "description" : "Sample size required to perform the test.",
+          "example" : "200 Kilo Tonnes"
+        },
+        "physicalSample" : {
+          "type" : "string",
+          "description" : "Defines whether physical sampling is required to perform the test. Defined values are yes for physical samples are required and no for physical samples are not required.",
+          "example" : "Y"
+        },
+        "recurranceQuantity" : {
+          "type" : "string",
+          "description" : "The amount of operations activity required between samples.",
+          "example" : "each load"
+        },
+        "recurrenceTimeInterval" : {
+          "type" : "string",
+          "description" : "The duration of operational activity required between samples",
+          "example" : "each 60 min"
+        },
+        "testSpecificationCriteria" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/testSpecificationCriteria"
+          }
+        },
+        "evaluatedProperties" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/evaluatedProperty"
+          }
+        },
+        "tesstSpecificationProperties" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/testSpecificationProperty"
+          }
+        }
+      }
+    },
+    "testSpecificationProperty" : {
+      "type" : "object",
+      "description" : "The test specification property object defines properties of the test specification. These properties are not the characteristics to be tested.",
+      "required" : [ "id", "value", "valueUnitOfMeasure" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "A unique identification of a test specification property.",
+          "example" : "EX-WM-TRAVEL-SPEED"
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "Additional information about the test specification property.",
+          "example" : "Speed"
+        },
+        "testSpecificationPropertyChildIds" : {
+          "type" : "array",
+          "description" : "Unique identifications of children of the test specification property as test specification property IDs which make up part",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "value" : {
+          "type" : "number",
+          "description" : "The default value, set of values, or range of the test specification property.",
+          "example" : 60
+        },
+        "valueUnitOfMeasure" : {
+          "type" : "string",
+          "description" : "The unit of measure of the associated test specification property value, if applicable.",
+          "example" : "Kilometres/Hour"
+        }
+      }
+    },
+    "testSpecificationCriteria" : {
+      "type" : "object",
+      "description" : "The test specification criteria object defines the set of criterion to evaluate and the test result to be reported when a testable object satisfies those criteria. This test specification criteria used to evaluate the evaluated property of a testable object property.",
+      "required" : [ "id", "sequence", "expression", "result", "evaluatedPropertyIds" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "Uniquely identifies the test specification criteria definition.",
+          "example" : "Fe_warning"
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "Contains additional information and descriptions of the test specification criteria.",
+          "example" : "Fe warning ranges"
+        },
+        "sequence" : {
+          "type" : "string",
+          "description" : "Specifies the sequence of evaluation of test specification criteria. The sequence shall be executed lowest first. Duplicate sequence values shall be executed in parallel with worst case result reported if both criterion are evaluated as true.",
+          "example" : "Node 1.1A"
+        },
+        "expression" : {
+          "type" : "string",
+          "description" : "An expression of the test specification criteria to be evaluated. If the expression is empty, then the test specification criteria represents the else criterion.",
+          "example" : "If (criterion 1) then ‘pass’ else if (criterion 2) then ‘warn’ else ‘fail’."
+        },
+        "result" : {
+          "type" : "string",
+          "description" : "The value to be given to the result of the test if the test specification criteria expression is evaluated as true",
+          "example" : "pass"
+        },
+        "evaluatedPropertyIds" : {
+          "type" : "array",
+          "description" : "The test specification criteria used to evaluate this evaluated property(s) of a testable object property.",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "evaluatedProperty" : {
+      "type" : "object",
+      "description" : "The evaluated property object identifies the set of testable object / testable object property pairs to be measured and the applicable test method to obtain a property measurement. This test specification criteria used to evaluate the evaluated property of a testable object property.",
+      "required" : [ "id", "testableObjectPropertyIds", "testSpecificationCriteriaIds" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "A unique identification of an evaluated property.",
+          "example" : "EX-WM-TRAVEL-SPEED"
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "Additional information about an evaluated property.",
+          "example" : "Speed"
+        },
+        "testableObjectPropertyIds" : {
+          "type" : "array",
+          "description" : "The testable object property ID which is to be measured by this test specification.",
+          "example" : "MS-Grade 1.1",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "workMasterIds" : {
+          "type" : "array",
+          "description" : "The work master ID or work directive ID which is applied test method to obtain the measurement of this evaluated property for test specification of the testable object property ID.",
+          "example" : "WM-EXE 1.1",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "testSpecificationCriteriaIds" : {
+          "type" : "array",
+          "description" : "This test specification criteria used to evaluate the evaluated property of a testable object property.",
+          "example" : "TSC-1.1",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "spatialDefinition" : {
       "type" : "object",
       "description" : "The spatial definition provides a means of communicating 0-dimensional point, 1-dimensional line, or 2-dimensional shape or 3-dimensional solid geospatial location data for planning/scheduling, actuals, resources, and analytics. Spatial definition identifies a value and the pre-defined coordinate reference system using following attributes a)  value; b)  format; c)  spatial reference identifier (SRID); and d)  SRID authority. A fully qualified spatial definition exchange has all 4 attributes as a minimum.  In some information exchanges, sending and receiving applications may have a specified agreement on format, SRID, and SRID authority. Spatial definition is distinct from, and separate to storage location and physical location. Storage location attribute is defined for material lots and material sublots as a non-spatial definition of location. The physical location attribute logically identifies a “place” which is actual physical location of the physical asset.",
       "properties" : {
